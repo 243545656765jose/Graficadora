@@ -342,3 +342,22 @@ $(document).ready(function () {
         return borderColors.slice(0, count);
     }
 });
+$(document).ready(function () {
+    // Llenar el combo box con los nombres de las columnas
+    function updateColumnSelect() {
+        const $select = $('#columnSelect');
+        $select.empty(); // Limpiar el combo box
+        $('#dataTable thead th').each(function (index) {
+            const columnName = $(this).text().trim();
+            $select.append(`<option value="${index}">${columnName}</option>`);
+        });
+    }
+
+    // Detectar cambios en los nombres de las columnas (cuando se editan)
+    $('#dataTable').on('input', 'thead th', function () {
+        updateColumnSelect(); // Llamar a la función para actualizar el combo box
+    });
+
+    // Llenar el combo box al cargar la página
+    updateColumnSelect();
+});

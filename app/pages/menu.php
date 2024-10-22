@@ -1,3 +1,13 @@
+<?php include '../shared/header.php'; ?>
+
+<?php
+// Verifica si el usuario está logueado
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php"); // Redirige al usuario si no está autenticado
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +27,7 @@
             <div class="menu-box">
                 <i class="fas fa-edit menu-icon"></i>
                 <h3 class="menu-title">Insertar Datos</h3>
-                <a href="insertar_datos.html" class="btn btn-custom mt-3">Ingresar</a>
+                <a href="insertar_datos.php" class="btn btn-custom mt-3">Ingresar</a>
             </div>
         </div>
         <!-- Cargar Datos Button -->
@@ -25,7 +35,23 @@
             <div class="menu-box">
                 <i class="fas fa-upload menu-icon"></i>
                 <h3 class="menu-title">Cargar Datos</h3>
-                <a href="cargar_datos.html" class="btn btn-custom mt-3">Cargar</a>
+                <a href="importdata.php" class="btn btn-custom mt-3">Cargar</a>
+            </div>
+        </div>
+        <!-- Actualizar Información Button -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="menu-box">
+                <i class="fas fa-user-edit menu-icon"></i>
+                <h3 class="menu-title">Actualizar Información</h3>
+                <a href="editar_info.php" class="btn btn-custom mt-3">Actualizar</a>
+            </div>
+        </div>
+        <!-- Tablas Compartidas Button -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="menu-box">
+                <i class="fas fa-table menu-icon"></i>
+                <h3 class="menu-title">Tablas Compartidas</h3>
+                <a href="compartir.php" class="btn btn-custom mt-3">Ver Tablas</a>
             </div>
         </div>
     </div>
