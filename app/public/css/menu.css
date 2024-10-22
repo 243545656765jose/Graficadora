@@ -1,0 +1,43 @@
+body {
+    background-color: #1a1a1a; /* Fondo oscuro para el cuerpo */
+    color: white; /* Color de texto blanco */
+}
+
+.menu-container {
+    margin-top: 100px; /* Espaciado superior */
+}
+
+.menu-box {
+    background-color: #4CAF50; /* Fondo verde para los cuadros */
+    border: 1px solid #3e8e41; /* Borde más oscuro */
+    border-radius: 10px; /* Bordes redondeados */
+    text-align: center; /* Centramos el texto */
+    padding: 30px; /* Espaciado interno */
+    transition: transform 0.2s ease-in-out; /* Transición suave */
+}
+
+.menu-box:hover {
+    transform: scale(1.05); /* Efecto de zoom al pasar el cursor */
+}
+
+.menu-icon {
+    font-size: 50px; /* Tamaño del ícono */
+    margin-bottom: 15px; /* Espaciado inferior */
+    color: #FFD700; /* Color amarillo para el ícono */
+}
+
+.menu-title {
+    font-size: 24px; /* Tamaño del título */
+    margin-top: 10px; /* Espaciado superior */
+    color: #f8f9fa; /* Color claro para el título */
+}
+
+.btn-custom {
+    background-color: #FFD700; /* Fondo amarillo para el botón */
+    color: #1a1a1a; /* Color del texto en el botón */
+    border: none; /* Sin borde */
+}
+
+.btn-custom:hover {
+    background-color: #FFC107; /* Fondo amarillo más oscuro al pasar el cursor */
+}

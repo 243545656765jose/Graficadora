@@ -1,0 +1,42 @@
+body {
+    background-color: #1e1e2f;
+    color: #fff;
+}
+
+.register-container {
+    background-color: #2c2c3c;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.register-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3c3c4e;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.register-right h4 {
+    color: #4CAF50;
+}
+
+.input-group-prepend span {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+.text-primary {
+    color: #4CAF50 !important;
+}

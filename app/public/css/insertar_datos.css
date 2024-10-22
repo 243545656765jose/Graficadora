@@ -1,0 +1,41 @@
+body {
+    background-color: #000; /* Negro */
+    color: #fff; /* Blanco */
+}
+
+h2, h4 {
+    color: #FFD700; /* Amarillo */
+}
+
+.btn-primary {
+    background-color: #28a745; /* Verde */
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #218838; /* Verde más oscuro */
+}
+
+.btn-success {
+    background-color: #FFD700; /* Amarillo */
+    border: none;
+    color: #000; /* Negro para el texto */
+}
+
+.btn-success:hover {
+    background-color: #ffc107; /* Amarillo más oscuro */
+}
+
+.modal-content {
+    background-color: #343a40; /* Color de fondo del modal */
+    color: #fff; /* Texto blanco en el modal */
+}
+
+.text-danger {
+    color: #FFD700; /* Amarillo para resultados */
+}
+
+/* Añadir estilos para los datos de la tabla */
+#dataTable tbody td {
+    color: #28a745; /* Verde para los datos de la tabla */
+}
