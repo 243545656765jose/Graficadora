@@ -128,6 +128,18 @@ $(document).ready(function () {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
+                    title: {
+                        display: true,
+                        text: document.getElementById('nombregrafico').value.trim() || 'Gráfico', // Título del gráfico usando el input
+                        font: {
+                            size: 20, // Tamaño de la fuente
+                            weight: 'bold', // Peso de la fuente
+                            family: 'Arial, sans-serif', // Tipo de fuente
+                            lineHeight: 1.2 // Altura de la línea
+                        },
+                        color: 'rgba(139, 0, 0, 1)' // Color rojo oscuro (Dark Red)
+                    },
+                    
                     tooltip: {
                         enabled: true,
                         callbacks: {
@@ -149,18 +161,19 @@ $(document).ready(function () {
                         }
                     }
                 },
+                
                 scales: chartType !== 'pie' ? {
                     y: {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Valores'
+                            text:  datos = document.getElementById('datos').value.trim() || 'Datos'
                         }
                     },
                     x: {
                         title: {
                             display: true,
-                            text: 'Etiquetas'
+                            text:  datos = document.getElementById('etiquetas').value.trim() || 'Etiquetas'
                         }
                     }
                 } : {},
@@ -331,16 +344,52 @@ $(document).ready(function () {
     }
 
     // Función para generar colores predefinidos
-    function generatePredefinedColors(count) {
-        const colors = ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 159, 64, 0.6)'];
-        return colors.slice(0, count);
-    }
+   // Función para generar colores de fondo predefinidos
+function generatePredefinedColors(count) {
+    const colors = [
+        'rgba(255, 99, 132, 0.6)', // Rosa
+        'rgba(54, 162, 235, 0.6)', // Azul
+        'rgba(255, 206, 86, 0.6)', // Amarillo
+        'rgba(75, 192, 192, 0.6)', // Teal
+        'rgba(153, 102, 255, 0.6)', // Púrpura
+        'rgba(255, 159, 64, 0.6)', // Naranja
+        'rgba(255, 99, 132, 0.6)', // Rosa oscuro
+        'rgba(0, 128, 0, 0.6)', // Verde
+        'rgba(255, 0, 255, 0.6)', // Magenta
+        'rgba(0, 0, 255, 0.6)', // Azul claro
+        'rgba(255, 165, 0, 0.6)', // Naranja claro
+        'rgba(128, 0, 128, 0.6)', // Púrpura oscuro
+        'rgba(0, 255, 255, 0.6)', // Cyan
+        'rgba(255, 192, 203, 0.6)', // Rosa claro
+        'rgba(240, 128, 128, 0.6)', // Coral
+        'rgba(50, 205, 50, 0.6)' // Verde claro
+    ];
+    return colors.slice(0, count);
+}
 
-    // Función para generar colores de borde predefinidos
-    function generatePredefinedBorderColors(count) {
-        const borderColors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
-        return borderColors.slice(0, count);
-    }
+// Función para generar colores de borde predefinidos
+function generatePredefinedBorderColors(count) {
+    const borderColors = [
+        'rgba(255, 99, 132, 1)', // Rosa
+        'rgba(54, 162, 235, 1)', // Azul
+        'rgba(255, 206, 86, 1)', // Amarillo
+        'rgba(75, 192, 192, 1)', // Teal
+        'rgba(153, 102, 255, 1)', // Púrpura
+        'rgba(255, 159, 64, 1)', // Naranja
+        'rgba(255, 99, 132, 1)', // Rosa oscuro
+        'rgba(0, 128, 0, 1)', // Verde
+        'rgba(255, 0, 255, 1)', // Magenta
+        'rgba(0, 0, 255, 1)', // Azul claro
+        'rgba(255, 165, 0, 1)', // Naranja claro
+        'rgba(128, 0, 128, 1)', // Púrpura oscuro
+        'rgba(0, 255, 255, 1)', // Cyan
+        'rgba(255, 192, 203, 1)', // Rosa claro
+        'rgba(240, 128, 128, 1)', // Coral
+        'rgba(50, 205, 50, 1)' // Verde claro
+    ];
+    return borderColors.slice(0, count);
+}
+
 });
 $(document).ready(function () {
     // Llenar el combo box con los nombres de las columnas

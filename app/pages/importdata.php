@@ -15,11 +15,20 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
+                    <h3>Nombre del Grafico</h3>
+                    <input id="nombregrafico" placeholder="Nombre General" type="text" class="form-control mb-3">
+                        <h3>Datos del Gráfico</h3>
+                        <input id="datos" placeholder="Nombre General" type="text" class="form-control mb-3">
+
+                        <h3>Etiquetas del Gráfico</h3>
+                        <input id="etiquetas" placeholder="Nombre General" type="text" class="form-control mb-3">
+
                         <h4><i class="fas fa-table"></i> Importar Datos desde Excel</h4>
                         <div class="form-group">
                             <label for="importFile">Seleccionar archivo Excel:</label>
                             <input type="file" id="importFile" class="form-control" accept=".xlsx, .xls">
                         </div>
+
                         <div class="btn-toolbar mt-3" role="toolbar" aria-label="Toolbar with buttons">
                             <div class="btn-group me-2" role="group" aria-label="First group">
                                 <button id="importExcel" class="btn btn-primary">
@@ -30,8 +39,8 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
 
@@ -41,9 +50,9 @@
                     <div class="card-body">
                         <h4><i class="fas fa-chart-bar"></i> Graficar y Calcular</h4>
                         <div class="form-group">
-    <label for="columnSelect">Seleccionar Columna para Calcular:</label>
-    <select id="columnSelect" class="form-control"></select>
-</div>
+                            <label for="columnSelect">Seleccionar Columna para Calcular:</label>
+                            <select id="columnSelect" class="form-control"></select>
+                        </div>
 
 
                         <button id="calculateBtn" class="btn btn-success w-100 mb-3">
@@ -103,8 +112,8 @@
                     <div class="modal-footer">
                         <!-- Botón para descargar el gráfico -->
                         <button id="downloadChartBtn" class="btn btn-primary">
-    <i class="fas fa-download"></i> Descargar PNG
-</button>
+                            <i class="fas fa-download"></i> Descargar PNG
+                        </button>
 
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     </div>
@@ -151,25 +160,25 @@
             </div>
         </div>
     </div>
- <!-- Modal para mostrar resultados -->
- <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-dark text-white">
-                        <h5 class="modal-title" id="resultModalLabel">Resultados</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong>Media Aritmética:</strong> <span id="meanResult"></span></p>
-                        <p><strong>Moda:</strong> <span id="modeResult"></span></p>
-                        <p><strong>Mediana:</strong> <span id="medianResult"></span></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
+    <!-- Modal para mostrar resultados -->
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="resultModalLabel">Resultados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Media Aritmética:</strong> <span id="meanResult"></span></p>
+                    <p><strong>Moda:</strong> <span id="modeResult"></span></p>
+                    <p><strong>Mediana:</strong> <span id="medianResult"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

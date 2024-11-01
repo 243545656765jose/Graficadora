@@ -74,10 +74,12 @@
                     <div class="card-body">
                         <h4><i class="fas fa-table"></i> Insertar Datos</h4>
 
-                        <div class="form-group">
-                            <label for="numColumns">Número de columnas:</label>
-                            <input type="number" id="numColumns" class="form-control" value="1" min="1">
-                        </div>
+                        <h3>Datos del Gráfico</h3>
+                        <input id="datos" placeholder="Nombre General" type="text" class="form-control mb-3">
+
+                        <h3>Etiquetas del Gráfico</h3>
+                        <input id="etiquetas" placeholder="Nombre General" type="text" class="form-control mb-3">
+
                         <!-- Botonera estilizada para manipulación de la tabla -->
                         <div class="btn-toolbar justify-content-between">
                             <!-- Grupo de botones para agregar filas y columnas -->
