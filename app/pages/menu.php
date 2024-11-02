@@ -54,6 +54,13 @@ if (!isset($_SESSION['user'])) {
                 <a href="compartir.php" class="btn btn-custom mt-3">Ver Tablas</a>
             </div>
         </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="menu-box">
+                <i class="fas fa-table menu-icon"></i>
+                <h3 class="menu-title">Datos desagrupados</h3>
+                <a href="desagrupar1.php" class="btn btn-custom mt-3">Insetar datos</a>
+            </div>
+        </div>
     </div>
 </div>
 
