@@ -1,6 +1,6 @@
 <?php include '../shared/header.php'; ?>
 <?php
-session_start();
+
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php"); // Redirige si no está logueado
@@ -18,83 +18,60 @@ function calcularAmplitud($min, $max, $numClases) {
     return truncarDosDecimales($rango / $numClases); // Truncar a dos decimales
 }
 
-// Función para calcular los límites indicados
-function calcularLimitesIndicados($min, $amplitud, $numClases) {
-    $limitesIndicados = [];
+// Función para calcular la media
+function calcularMedia($numeros) {
+    return truncarDosDecimales(array_sum($numeros) / count($numeros));
+}
+
+// Función para calcular la moda
+function calcularModa($numeros) {
+    $valores = array_count_values($numeros);
+    $maxFrecuencia = max($valores);
+    $modas = array_keys($valores, $maxFrecuencia);
+    return $modas;
+}
+
+// Función para calcular los intervalos
+function calcularIntervalos($min, $amplitud, $numClases) {
+    $intervalos = [];
     for ($i = 0; $i < $numClases; $i++) {
         $limInf = truncarDosDecimales($min + $i * $amplitud);
         $limSup = truncarDosDecimales($limInf + $amplitud);
-        $limitesIndicados[] = "$limInf - $limSup";
+        $intervalos[] = "$limInf - $limSup";
+    }
+    return $intervalos;
+}
+
+// Función para calcular los límites indicados
+function calcularLimitesIndicados($intervalos, $max) {
+    $limitesIndicados = [];
+    foreach ($intervalos as $index => $intervalo) {
+        list($limInf, $limSup) = explode(" - ", $intervalo);
+        // Mantener el último límite superior igual al máximo
+        $limSupReal = ($index === count($intervalos) - 1) ? $max : truncarDosDecimales($limSup - 1);
+        $limitesIndicados[] = "$limInf - $limSupReal";
     }
     return $limitesIndicados;
 }
 
-// Función para calcular los límites reales
-function calcularLimitesReales($limitesIndicados) {
-    $limitesReales = [];
-    foreach ($limitesIndicados as $limite) {
+// Función para calcular las frecuencias absolutas considerando todos los números en el rango
+function calcularFrecuenciasAbsolutas($numeros, $limitesIndicados) {
+    $frecuencias = array_fill(0, count($limitesIndicados), 0);
+
+    // Iterar sobre los límites indicados para calcular las frecuencias
+    foreach ($limitesIndicados as $index => $limite) {
         list($limInf, $limSup) = explode(" - ", $limite);
-        $limInfReal = truncarDosDecimales($limInf - 0.5);
-        $limSupReal = truncarDosDecimales($limSup + 0.5);
-        $limitesReales[] = "$limInfReal - $limSupReal";
-    }
-    return $limitesReales;
-}
-
-// Función para calcular los puntos medios
-function calcularPuntosMedios($limitesReales) {
-    $puntosMedios = [];
-    foreach ($limitesReales as $limite) {
-        list($limInfReal, $limSupReal) = explode(" - ", $limite);
-        $puntosMedios[] = truncarDosDecimales(($limInfReal + $limSupReal) / 2);
-    }
-    return $puntosMedios;
-}
-
-// Función para calcular las frecuencias absolutas
-function calcularFrecuencias($numeros, $limitesReales) {
-    $frecuencias = array_fill(0, count($limitesReales), 0);
-    
-    foreach ($numeros as $numero) {
-        foreach ($limitesReales as $index => $limite) {
-            list($limInfReal, $limSupReal) = explode(" - ", $limite);
-            if ($numero >= $limInfReal && $numero < $limSupReal) {
-                $frecuencias[$index]++;
-                break; // Salir del bucle una vez que se cuenta la frecuencia
+        
+        // Contar cuántos números están en el rango definido por los límites
+        foreach ($numeros as $numero) {
+            // Verificar que el número esté dentro del intervalo
+            if ($numero >= $limInf && $numero <= $limSup) {
+                $frecuencias[$index]++; // Incrementar la frecuencia
             }
         }
     }
 
     return $frecuencias;
-}
-
-// Función para calcular frecuencias acumuladas "menos de"
-function calcularFrecuenciasAcumuladasMenosDe($frecuencias) {
-    $acumMenosDe = [];
-    $suma = 0;
-    foreach ($frecuencias as $frecuencia) {
-        $suma += $frecuencia;
-        $acumMenosDe[] = $suma;
-    }
-    return $acumMenosDe;
-}
-
-// Función para calcular frecuencias acumuladas "más de"
-function calcularFrecuenciasAcumuladasMasDe($frecuencias) {
-    $acumMasDe = [];
-    $suma = array_sum($frecuencias);
-    foreach ($frecuencias as $frecuencia) {
-        $suma -= $frecuencia;
-        $acumMasDe[] = $suma;
-    }
-    return $acumMasDe;
-}
-
-// Función para calcular frecuencias relativas
-function calcularFrecuenciasRelativas($frecuencias, $totalDatos) {
-    return array_map(function($f) use ($totalDatos) {
-        return truncarDosDecimales(($f / $totalDatos) * 100);
-    }, $frecuencias);
 }
 
 $resultado = null;
@@ -105,31 +82,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['numeros'], $_POST['cla
     $min = min($numeros);
     $max = max($numeros);
 
-    // Cálculos de amplitud y otros valores
+    // Cálculos adicionales
     $amplitud = calcularAmplitud($min, $max, $numClases);
-    $limitesIndicados = calcularLimitesIndicados($min, $amplitud, $numClases); // Calcula los límites indicados
-    $limitesReales = calcularLimitesReales($limitesIndicados);
-    $puntosMedios = calcularPuntosMedios($limitesReales);
-    $frecuencias = calcularFrecuencias($numeros, $limitesReales); // Calcular frecuencias
-    $totalDatos = count($numeros);
-    $frecuenciasRelativas = calcularFrecuenciasRelativas($frecuencias, $totalDatos); // Calcular frecuencias relativas
-    $acumMenosDe = calcularFrecuenciasAcumuladasMenosDe($frecuencias); // Calcular acumuladas "menos de"
-    $acumMasDe = calcularFrecuenciasAcumuladasMasDe($frecuencias); // Calcular acumuladas "más de"
-
+    $media = calcularMedia($numeros);
+    $modas = calcularModa($numeros);
+    $intervalos = calcularIntervalos($min, $amplitud, $numClases);
+    $limitesIndicados = calcularLimitesIndicados($intervalos, $max);
+    $frecuenciasAbsolutas = calcularFrecuenciasAbsolutas($numeros, $limitesIndicados);
+    
     $resultado = [
         'numeros' => $numeros,
         'min' => $min,
         'max' => $max,
         'amplitud' => $amplitud,
+        'media' => $media,
+        'modas' => $modas,
+        'intervalos' => $intervalos,
         'limitesIndicados' => $limitesIndicados,
-        'limitesReales' => $limitesReales,
-        'puntosMedios' => $puntosMedios,
-        'frecuencias' => $frecuencias,
-        'frecuenciasRelativas' => $frecuenciasRelativas,
-        'acumMenosDe' => $acumMenosDe,
-        'acumMasDe' => $acumMasDe,
+        'frecuenciasAbsolutas' => $frecuenciasAbsolutas,
     ];
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -138,62 +111,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['numeros'], $_POST['cla
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Distribución de Frecuencias</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        input[type="text"], input[type="number"] { width: 100%; padding: 10px; margin-bottom: 10px; }
-        button { padding: 10px 20px; cursor: pointer; }
-        .result, .table-container { margin-top: 20px; background-color: #f4f4f4; padding: 10px; border-radius: 5px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 8px; border: 1px solid #ddd; text-align: center; }
-        th { background-color: #add8e6; color: black; }
-    </style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Distribución de Frecuencias</h2>
+    <div class="container mt-5">
+    <a href="../pages/menu.php" class="btn btn-danger mb-3" style="margin-top: 20px;">
+            <i class="fas fa-arrow-left"></i> Atrás
+        </a>
+        <h2 class="text-center">Distribución de Frecuencias</h2>
         <form method="POST">
-            <label for="numeros">Introduce números separados por comas:</label>
-            <input type="text" id="numeros" name="numeros" required placeholder="Ejemplo: 5,3,8,10,2">
-            <label for="clases">Número de clases:</label>
-            <input type="number" id="clases" name="clases" required min="1" placeholder="Ejemplo: 6">
-            <button type="submit">Calcular</button>
+            <div class="form-group">
+                <label for="numeros">Introduce números separados por comas:</label>
+                <input type="text" class="form-control" id="numeros" name="numeros" required placeholder="Ejemplo: 5,3,8,10,2">
+            </div>
+            <div class="form-group">
+                <label for="clases">Número de clases:</label>
+                <input type="number" class="form-control" id="clases" name="clases" required min="1" placeholder="Ejemplo: 6">
+            </div>
+            <button type="submit" class="btn btn-primary">Calcular</button>
         </form>
 
         <?php if ($resultado): ?>
-            <div class="table-container">
-                <h3>Tabla de Distribución de Frecuencias</h3>
-                <table>
-                    <tr>
-                        <th>Límites Indicados</th>
-                        <th>Límites Reales</th>
-                        <th>Puntos Medios Xi</th>
-                        <th>Frecuencia Absoluta Fi</th>
-                        <th>Frecuencia Relativa (%)</th>
-                        <th>ACUM "menos de"</th>
-                        <th>ACUM "más de"</th>
-                    </tr>
-                    <?php for ($i = 0; $i < count($resultado['limitesIndicados']); $i++): ?>
-                        <tr>
-                            <td><?php echo $resultado['limitesIndicados'][$i]; ?></td>
-                            <td><?php echo $resultado['limitesReales'][$i]; ?></td>
-                            <td><?php echo $resultado['puntosMedios'][$i]; ?></td>
-                            <td><?php echo $resultado['frecuencias'][$i]; ?></td>
-                            <td><?php echo number_format($resultado['frecuenciasRelativas'][$i], 2); ?>%</td>
-                            <td><?php echo $resultado['acumMenosDe'][$i]; ?></td>
-                            <td><?php echo $resultado['acumMasDe'][$i]; ?></td>
-                        </tr>
-                    <?php endfor; ?>
-                    <tr>
-                        <td colspan="3"><strong>TOTAL</strong></td>
-                        <td><strong><?php echo array_sum($resultado['frecuencias']); ?></strong></td>
-                        <td><strong>100%</strong></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
+            <div class="mt-4 p-3 border rounded bg-light">
+                <h3>Resultados Estadísticos</h3>
+                <p><strong>Números Ingresados:</strong> <?php echo implode(', ', $resultado['numeros']); ?></p>
+                <p><strong>Media Aritmética:</strong> <?php echo $resultado['media']; ?></p>
+                <p><strong>Moda:</strong> <?php echo implode(', ', $resultado['modas']); ?></p>
+                <p><strong>Mínimo:</strong> <?php echo $resultado['min']; ?></p>
+                <p><strong>Máximo:</strong> <?php echo $resultado['max']; ?></p>
+                <p><strong>Amplitud:</strong> <?php echo $resultado['amplitud']; ?></p>
+                <p><strong>Intervalos:</strong> <?php echo implode(', ', $resultado['intervalos']); ?></p>
+                <p><strong>Límites Indicados:</strong> <?php echo implode(', ', $resultado['limitesIndicados']); ?></p>
+                <p><strong>Frecuencias Absolutas:</strong> <?php echo implode(', ', $resultado['frecuenciasAbsolutas']); ?></p>
             </div>
         <?php endif; ?>
     </div>
+
+    <!-- Bootstrap JS, Popper.js, jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

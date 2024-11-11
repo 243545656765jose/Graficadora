@@ -2,7 +2,7 @@
 
 <body>
 
-
+    <link rel="stylesheet" href="/public/css/cargardatos.css">
     <div class="container mt-5">
         <!-- Botón Atrás -->
         <a href="../pages/menu.php" class="btn btn-danger mb-3" style="margin-top: 20px;">
@@ -111,11 +111,10 @@
                     </div>
                     <div class="modal-footer">
                         <!-- Botón para descargar el gráfico -->
-                        <button id="downloadChartBtn" class="btn btn-primary">
-                            <i class="fas fa-download"></i> Descargar PNG
-                        </button>
-
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <div class="modal-footer">
+                <button id="downloadBtn" class="btn btn-primary"><i class="fas fa-download"></i> Descargar PNG</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
                     </div>
                 </div>
             </div>
@@ -191,9 +190,7 @@
     <script src="/public/js/medidas.js"></script>
     <script src="/public/js/graficar.js"></script>
     <script src="/public/js/descargartabla.js"></script>
-
-
-
+   
 </body>
 
 </html>

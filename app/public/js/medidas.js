@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // Calcular Media, Moda y Mediana
+    // Al hacer clic en el botón de calcular
     $('#calculateBtn').on('click', function () {
         const columnIndex = $('#columnSelect').val();
         if (columnIndex === null) {
@@ -12,11 +12,11 @@ $(document).ready(function () {
         $('#dataTable tbody tr').each(function () {
             const value = $(this).find('td').eq(columnIndex).text();
             const parsedValue = parseFloat(value);
-            
+
             // Validar que el valor sea un número
             if (!isNaN(parsedValue)) {
                 values.push(parsedValue);
-            } 
+            }
         });
 
         if (values.length === 0) {
@@ -24,13 +24,14 @@ $(document).ready(function () {
             return;
         }
 
+        // Calcular las estadísticas
         const mean = calculateMean(values);
         const mode = calculateMode(values);
         const median = calculateMedian(values);
 
         // Mostrar resultados en el modal
         $('#meanResult').text(mean.toFixed(2)); // Media
-        $('#modeResult').text(mode.length ? mode.join(', ') : 'No hay moda'); // Moda
+        $('#modeResult').text(Array.isArray(mode) ? mode.join(', ') : mode); // Moda
         $('#medianResult').text(median.toFixed(2)); // Mediana
 
         // Mostrar el modal con los resultados
@@ -49,6 +50,7 @@ $(document).ready(function () {
         let maxFreq = 0;
         const modes = [];
 
+        // Contar las frecuencias de cada valor
         values.forEach(value => {
             frequency[value] = (frequency[value] || 0) + 1;
             if (frequency[value] > maxFreq) {
@@ -56,13 +58,21 @@ $(document).ready(function () {
             }
         });
 
+        // Seleccionar los valores con la frecuencia máxima
         for (let key in frequency) {
             if (frequency[key] === maxFreq && maxFreq > 1) {
-                modes.push(key); // Solo agrega si hay más de una ocurrencia
+                modes.push(parseFloat(key));
             }
         }
 
-        return modes;
+        // Determinar si es multimodal o no hay moda
+        if (modes.length > 1) {
+            return `Multimodal: ${modes.join(', ')}`;
+        } else if (modes.length === 1) {
+            return modes; // Unimodal con un único valor de moda
+        } else {
+            return 'No hay moda'; // No hay moda
+        }
     }
 
     // Función para calcular la mediana
@@ -78,56 +88,4 @@ $(document).ready(function () {
             return values[mid];
         }
     }
-   
-});
-// Función para crear la tabla
-
-$(document).ready(function () {
-    // Función para importar el archivo Excel y mostrar en tabla
-    $('#importExcel').on('click', function () {
-        const fileInput = document.getElementById('importFile');
-        const file = fileInput.files[0];
-
-        if (!file) {
-            alert('Por favor selecciona un archivo.');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const data = new Uint8Array(e.target.result);
-            const workbook = XLSX.read(data, { type: 'array' });
-            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-            const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-
-            if (jsonData.length === 0) {
-                alert('El archivo está vacío o tiene un formato no válido.');
-                return;
-            }
-
-            // Limpiar tabla antes de agregar datos
-            $('#dataTable thead tr').empty();
-            $('#dataTable tbody').empty();
-            $('#columnSelect').empty(); // Limpiar el combo box
-
-            // Agregar encabezados (primera fila del Excel)
-            const headers = jsonData[0];
-            headers.forEach(function (header) {
-                $('#dataTable thead tr').append(`<th>${header}</th>`); // Agregar encabezados a la tabla
-                $('#columnSelect').append(`<option value="${headers.indexOf(header)}">${header}</option>`); // Agregar al combo box
-            });
-
-            // Agregar filas de datos
-            for (let i = 1; i < jsonData.length; i++) {
-                let row = '<tr>';
-                jsonData[i].forEach(function (cell) {
-                    row += `<td>${cell}</td>`;
-                });
-                row += '</tr>';
-                $('#dataTable tbody').append(row);
-            }
-        };
-
-        reader.readAsArrayBuffer(file);
-    });
 });

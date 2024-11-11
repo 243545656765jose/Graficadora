@@ -3,7 +3,7 @@
 <?php
 // Verifica si el usuario está logueado
 if (!isset($_SESSION['user'])) {
-    header("Location: login.php"); // Redirige al usuario si no está autenticado
+    header("Location: login.php");
     exit();
 }
 ?>
@@ -15,64 +15,13 @@ if (!isset($_SESSION['user'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/public/css/nosotros.css">
     <title>Acerca de Nosotros</title>
-    <style>
-        .hero {
-            background-color: #f8f9fa;
-            padding: 60px 0;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 0;
-        }
-        .section {
-            padding: 40px 0;
-        }
-        .section h2 {
-            margin-bottom: 20px;
-            opacity: 0; /* Inicialmente oculto */
-            transform: translateY(20px); /* Desplazado hacia abajo */
-            transition: opacity 0.6s, transform 0.6s; /* Transiciones */
-        }
-        .section p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        .icon {
-            font-size: 50px;
-            color: #007bff;
-            margin-bottom: 10px;
-            transition: transform 0.3s; /* Transición para movimiento */
-        }
-        .icon:hover {
-            transform: translateY(-5px) rotate(10deg); /* Efecto al pasar el mouse */
-        }
-        .menu-box {
-            transition: transform 0.2s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            background: #ffffff;
-        }
-        .menu-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-        }
-    </style>
 </head>
 
 <body>
     <div class="container hero">
-        <h1>Bienvenido a GraphMaster</h1>
+        <h1>Bienvenido a IAGraph</h1>
         <p>La herramienta que facilita el análisis de datos mediante gráficos intuitivos.</p>
     </div>
 
@@ -108,30 +57,6 @@ if (!isset($_SESSION['user'])) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Función para animar los títulos al hacer scroll
-        document.addEventListener("DOMContentLoaded", function() {
-            const sections = document.querySelectorAll('.section h2');
-            const options = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        entry.target.style.transform = 'translateY(0)';
-                        observer.unobserve(entry.target); // Dejar de observar una vez que se activa
-                    }
-                });
-            }, options);
-
-            sections.forEach(section => {
-                observer.observe(section); // Iniciar la observación de cada título
-            });
-        });
-    </script>
+    <script src="/public/js/nosotros.js"></script>
 </body>
 </html>

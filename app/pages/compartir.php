@@ -9,36 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <title>Cargar Archivos Excel</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-    <style>
-        .modal-body {
-            max-height: 60vh; /* Ajustar la altura máxima del modal */
-            overflow-y: auto; /* Habilitar desplazamiento vertical si el contenido excede la altura */
-        }
-
-        table {
-            width: 100%; /* Asegurar que la tabla use todo el ancho disponible */
-            border-collapse: collapse; /* Colapsar bordes */
-        }
-
-        th {
-            background-color: #007bff; /* Color de fondo para encabezados */
-            color: white; /* Color de texto en encabezados */
-            border: 1px solid #dee2e6; /* Separadores entre columnas */
-        }
-
-        td {
-            border: 1px solid #dee2e6; /* Separadores entre columnas */
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2; /* Color de fondo para filas pares */
-        }
-
-        tr:hover {
-            background-color: #d1ecf1; /* Color al pasar el mouse */
-        }
-    </style>
-</head>
+    <link rel="stylesheet" href="/public/css/compartir.css">
 
 <body>
     <div class="container mt-5">
@@ -100,41 +71,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function previewFile(filePath) {
-            // Crear un nuevo XMLHttpRequest para cargar el archivo
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", filePath, true);
-            xhr.responseType = "arraybuffer";
-
-            xhr.onload = function (e) {
-                if (xhr.status === 200) {
-                    const data = new Uint8Array(xhr.response);
-                    const workbook = XLSX.read(data, { type: "array" });
-
-                    // Obtener la primera hoja
-                    const firstSheetName = workbook.SheetNames[0];
-                    const worksheet = workbook.Sheets[firstSheetName];
-
-                    // Convertir a HTML
-                    const html = XLSX.utils.sheet_to_html(worksheet, { editable: true });
-
-                    // Crear una tabla con estilo de Bootstrap
-                    const tableHtml = `
-                        <table class="table table-striped table-bordered table-hover">
-                            ${html}
-                        </table>
-                    `;
-                    document.getElementById('previewTableContainer').innerHTML = tableHtml;
-
-                    // Mostrar el modal de vista previa
-                    const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
-                    previewModal.show();
-                }
-            };
-
-            xhr.send();
-        }
-    </script>
+    <script src="/public/js/compartir.js"></script>
 </body>
 </html>

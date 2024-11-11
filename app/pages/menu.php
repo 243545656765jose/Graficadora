@@ -58,7 +58,7 @@ if (!isset($_SESSION['user'])) {
             <div class="menu-box">
                 <i class="fas fa-table menu-icon"></i>
                 <h3 class="menu-title">Datos desagrupados</h3>
-                <a href="desagrupar1.php" class="btn btn-custom mt-3">Insetar datos</a>
+                <a href="desagrupados.php" class="btn btn-custom mt-3">Insetar datos</a>
             </div>
         </div>
     </div>

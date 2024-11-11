@@ -1,43 +1,43 @@
 body {
-    background-color: #1a1a1a; /* Fondo oscuro para el cuerpo */
-    color: white; /* Color de texto blanco */
+    background-color: #1a1a1a; 
+    color: white; 
 }
 
 .menu-container {
-    margin-top: 100px; /* Espaciado superior */
+    margin-top: 100px; 
 }
 
 .menu-box {
-    background-color: #4CAF50; /* Fondo verde para los cuadros */
-    border: 1px solid #3e8e41; /* Borde más oscuro */
-    border-radius: 10px; /* Bordes redondeados */
-    text-align: center; /* Centramos el texto */
-    padding: 30px; /* Espaciado interno */
-    transition: transform 0.2s ease-in-out; /* Transición suave */
+    background-color: #4CAF50; 
+    border: 1px solid #3e8e41;
+    border-radius: 10px; 
+    text-align: center; 
+    padding: 30px; 
+    transition: transform 0.2s ease-in-out; 
 }
 
 .menu-box:hover {
-    transform: scale(1.05); /* Efecto de zoom al pasar el cursor */
+    transform: scale(1.05); 
 }
 
 .menu-icon {
-    font-size: 50px; /* Tamaño del ícono */
-    margin-bottom: 15px; /* Espaciado inferior */
-    color: #FFD700; /* Color amarillo para el ícono */
+    font-size: 50px; 
+    margin-bottom: 15px; 
+    color: #FFD700;
 }
 
 .menu-title {
-    font-size: 24px; /* Tamaño del título */
-    margin-top: 10px; /* Espaciado superior */
-    color: #f8f9fa; /* Color claro para el título */
+    font-size: 24px; 
+    margin-top: 10px; 
+    color: #f8f9fa;
 }
 
 .btn-custom {
-    background-color: #FFD700; /* Fondo amarillo para el botón */
-    color: #1a1a1a; /* Color del texto en el botón */
-    border: none; /* Sin borde */
+    background-color: #FFD700;
+    color: #1a1a1a;
+    border: none; 
 }
 
 .btn-custom:hover {
-    background-color: #FFC107; /* Fondo amarillo más oscuro al pasar el cursor */
+    background-color: #FFC107;
 }

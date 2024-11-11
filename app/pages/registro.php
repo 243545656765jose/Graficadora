@@ -6,71 +6,8 @@
     <title>Register to GraphMaster</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {
-            background-color: #121212; /* Fondo oscuro */
-            color: #ffffff; /* Texto blanco */
-        }
-
-        .register-container {
-            background-color: #1e1e1e; /* Contenedor oscuro */
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-
-        .register-left {
-            background-color: #343a40;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .register-left img {
-            width: 150px;
-        }
-
-        .register-right {
-            padding: 30px;
-        }
-
-        .form-control {
-            border-radius: 20px;
-            background-color: #2c2c2c; /* Fondo de los campos de entrada */
-            color: #ffffff; /* Texto blanco */
-            border: 1px solid #444; /* Borde oscuro */
-        }
-
-        .form-control:focus {
-            border-color: #007bff; /* Color de borde al enfocar */
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra de enfoque */
-        }
-
-        .btn-primary {
-            border-radius: 20px;
-            background-color: #007bff; /* Color del botón */
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3; /* Color del botón al pasar el ratón */
-            transform: translateY(-2px); /* Efecto de elevación */
-        }
-
-        .text-primary {
-            font-weight: bold;
-        }
-
-        .text-muted {
-            color: #bbb; /* Color gris para texto secundario */
-        }
-
-        /* Animaciones */
-        .fade-in {
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-    </style>
+    <link rel="stylesheet" href="/public/css/registro.css">
+    
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
@@ -115,7 +52,7 @@
                     <button type="submit" class="btn btn-primary btn-block">REGISTER</button>
                 </form>
                 <div class="text-center mt-3">
-                    <p>¿Ya tienes una cuenta? <a href="login.html" class="text-primary">Inicia sesión aquí</a></p>
+                    <p>¿Ya tienes una cuenta? <a href="/index.php" class="text-primary">Inicia sesión aquí</a></p>
                 </div>
             </div>
         </div>
